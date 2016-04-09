@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -x
+
+KEY="$1"
+VALUE="$2"
+
+function show_usage {
+    echo "Usage: $(basename $0) {key} {value}"
+    exit
+}
+
+# Show the usage if there is no state
+if [[ -z ${KEY} || -z ${VALUE} ]]; then
+    show_usage;
+fi
+
+
+# Get the current notes, remove state. 
+CURRENT_NOTES=$(git notes show)
+REMOVED_KEY=$(echo -e "${CURRENT_NOTES}" | sed -e "/${KEY}:/d" | sed -e '/^$/d')
+NOTE="${REMOVED_KEY}
+${KEY}: ${VALUE}"
+
+git notes add -f -m "${NOTE}"
+
