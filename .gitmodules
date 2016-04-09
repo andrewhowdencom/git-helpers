@@ -1,0 +1,3 @@
+[submodule "development/hooks"]
+	path = development/hooks
+	url = git@git.littleman.co:git/hooks.git
