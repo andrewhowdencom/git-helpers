@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# See if we should be committing securely
+
+if [[ -z ${GIT_ENABLE_SECURE_COMMIT} ]]; then
+    git commit $@
+else 
+    git commit -S $@
+fi
+
